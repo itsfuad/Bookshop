@@ -1,11 +1,11 @@
-package com.bookshop.management;
+package gui;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.*;
+import src.Main;
 
-class SignUp1 {
+public class SignUp1 {
     public SignUp1() {
         JFrame j = new JFrame("Register");
         j.setSize(800, 600);
@@ -17,7 +17,7 @@ class SignUp1 {
         j.add(layeredPane);
 
         // Background image
-        ImageIcon img = new ImageIcon("C:\\Users\\masiy\\LeafShop.jpg");  // Ensure the path to the image is correct
+        ImageIcon img = new ImageIcon("resource/LeafShop.jpg");  // Ensure the path to the image is correct
         JLabel imgLabel = new JLabel(img);
         imgLabel.setBounds(0, 0, 800, 600);
         
@@ -90,36 +90,28 @@ class SignUp1 {
         layeredPane.add(backButton, Integer.valueOf(1));  // Add to top layer
 
         // Add action listener to Register button
-        registerButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String username = usernameField.getText();
-                String email = emailField.getText();
-                String password = new String(pass1.getPassword());
-                String confirmPassword = new String(confirmPasswordField.getPassword());
+        registerButton.addActionListener((ActionEvent e) -> {
+            String username = usernameField.getText();
+            String email = emailField.getText();
+            String password = new String(pass1.getPassword());
+            String confirmPassword = new String(confirmPasswordField.getPassword());
 
-                if (!password.equals(confirmPassword)) {
-                    JOptionPane.showMessageDialog(j, "Passwords do not match!");
-                } else {
-                    JOptionPane.showMessageDialog(j, "Registration successful!");
-                }
-                j.dispose(); // Close SignUp
-                new LoginFrame(); // Open Login Frame
+            if (!password.equals(confirmPassword)) {
+                JOptionPane.showMessageDialog(j, "Passwords do not match!");
+            } else {
+                JOptionPane.showMessageDialog(j, "Registration successful!");
             }
+            j.dispose(); // Close SignUp
+            new LoginFrame(); // Open Login Frame
         });
 
         // Action listener for Back button
-        backButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                j.dispose();  // Close window
-                new WelcomeFrame(); // Open the Welcome Frame
-            }
+        backButton.addActionListener((ActionEvent e) -> {
+            j.dispose();  // Close window
+            new Main(); // Open the Welcome Frame
         });
 
         j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         j.setVisible(true);
-    }
-
-    public static void main(String[] args) {
-        new SignUp1();
     }
 }

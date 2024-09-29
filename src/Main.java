@@ -1,13 +1,13 @@
-package com.bookshop.management;
+package src;
 
-import javax.swing.*;
+import gui.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.*;
 
-public class WelcomeFrame {
+public class Main {
 
-    public WelcomeFrame() {
+    public Main() {
         // JFrame
         JFrame frame = new JFrame("Welcome");
         frame.setSize(800, 600);
@@ -19,7 +19,7 @@ public class WelcomeFrame {
         frame.add(layeredPane);
 
         // Background image
-        ImageIcon background = new ImageIcon("SignUp.jpg"); // Path to background image
+        ImageIcon background = new ImageIcon("resource/SignUp.jpg"); // Path to background image
         JLabel backgroundLabel = new JLabel(background);
         backgroundLabel.setBounds(0, 0, 800, 600);
         layeredPane.add(backgroundLabel, Integer.valueOf(0));  // Background image in the lowest layer
@@ -37,11 +37,9 @@ public class WelcomeFrame {
         layeredPane.add(loginButton, Integer.valueOf(1));  // Add to the top layer
 
         // ActionListener to open the Login Frame when clicking the Login button
-        loginButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                frame.dispose(); // Close the welcome frame
-                new LoginFrame(); // Open the Login Frame
-            }
+        loginButton.addActionListener((ActionEvent e) -> {
+            frame.dispose(); // Close the welcome frame
+            new LoginFrame(); // Open the Login Frame
         });
 
         // SignUp button
@@ -50,11 +48,9 @@ public class WelcomeFrame {
         layeredPane.add(signupButton, Integer.valueOf(1));  // Add to the top layer
 
         // ActionListener to open the SignUp Frame when clicking the SignUp button
-        signupButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                frame.dispose(); // Close the welcome frame
-                new SignUp1(); // Open the SignUp Frame
-            }
+        signupButton.addActionListener((ActionEvent e) -> {
+            frame.dispose(); // Close the welcome frame
+            new SignUp1(); // Open the SignUp Frame
         });
 
         // Set frame properties
@@ -63,7 +59,7 @@ public class WelcomeFrame {
     }
 
     public static void main(String[] args) {
-        new WelcomeFrame();  // Launch WelcomeFrame
+        new Main();  // Launch Main
     }
 }
 

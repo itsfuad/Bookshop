@@ -1,12 +1,12 @@
-package com.bookshop.management;
+package gui;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import javax.swing.*;
+import src.Main;
 
 public class AdminDashboard extends JFrame {
     private JTextField bookTitleField;
@@ -63,22 +63,18 @@ public class AdminDashboard extends JFrame {
         JScrollPane bookScrollPane = new JScrollPane(inventoryArea);
         bookInventoryPanel.add(bookScrollPane, BorderLayout.CENTER);
 
-        addBookButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    addBook();
-                } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(AdminDashboard.this, "Error saving book data: " + ex.getMessage(), "File Error", JOptionPane.ERROR_MESSAGE);
-                }
+        addBookButton.addActionListener((ActionEvent e) -> {
+            try {
+                addBook();
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(AdminDashboard.this, "Error saving book data: " + ex.getMessage(), "File Error", JOptionPane.ERROR_MESSAGE);
             }
         });
 
         // Action listener for the Logout button
-        logoutButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                AdminDashboard.this.dispose();  // Close the AdminDashboard window
-                new WelcomeFrame();  // Open WelcomeFrame window
-            }
+        logoutButton.addActionListener(e -> {
+            AdminDashboard.this.dispose();  // Close the AdminDashboard window
+            new Main();  // Open Main window
         });
 
         tabbedPane.add("Manage Inventory", bookInventoryPanel);
@@ -107,13 +103,11 @@ public class AdminDashboard extends JFrame {
         JScrollPane customerScrollPane = new JScrollPane(customerArea);
         customerManagementPanel.add(customerScrollPane, BorderLayout.CENTER);
 
-        addCustomerButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    addCustomer();
-                } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(AdminDashboard.this, "Error saving customer data: " + ex.getMessage(), "File Error", JOptionPane.ERROR_MESSAGE);
-                }
+        addCustomerButton.addActionListener((ActionEvent e) -> {
+            try {
+                addCustomer();
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(AdminDashboard.this, "Error saving customer data: " + ex.getMessage(), "File Error", JOptionPane.ERROR_MESSAGE);
             }
         });
 
@@ -201,9 +195,5 @@ public class AdminDashboard extends JFrame {
     private void clearCustomerFields() {
         customerNameField.setText("");
         customerEmailField.setText("");
-    }
-
-    public static void main(String[] args) {
-        new AdminDashboard();
     }
 }

@@ -1,11 +1,11 @@
-package com.bookshop.management;
+package gui;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.*;
+import src.Main;
 
-class LoginFrame {
+public class LoginFrame {
     // Arrays for usernames and passwords for admin and customers
     private String[] adminUsers = {"admin"};
     private String[] adminPasswords = {"admin123"};
@@ -23,7 +23,7 @@ class LoginFrame {
         j.add(layeredPane);
 
         // Background image
-        ImageIcon img = new ImageIcon("C:\\Users\\masiy\\Login.jpg"); // image path
+        ImageIcon img = new ImageIcon("resource/Login.jpg"); // image path
         JLabel imgLabel = new JLabel(img);
         imgLabel.setBounds(0, 0, 800, 600);
         layeredPane.add(imgLabel, Integer.valueOf(0)); // Background image in the bottom layer
@@ -70,40 +70,36 @@ class LoginFrame {
         layeredPane.add(backButton, Integer.valueOf(1));  // Add to top layer
 
         // Action listener for Login button
-        loginButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String username = usernameField.getText();
-                String password = new String(passwordField.getPassword());
+        loginButton.addActionListener((ActionEvent e) -> {
+            String username = usernameField.getText();
+            String password = new String(passwordField.getPassword());
 
-                if (username.isEmpty() || password.isEmpty()) {
-                    JOptionPane.showMessageDialog(j, "Please enter both username and password!", "Error", JOptionPane.ERROR_MESSAGE);
+            if (username.isEmpty() || password.isEmpty()) {
+                JOptionPane.showMessageDialog(j, "Please enter both username and password!", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                // To Check if the user is an admin
+                if (isAdmin(username, password)) {
+                    JOptionPane.showMessageDialog(j, "Admin login successful!");
+                    j.dispose(); // Close the login window
+                    AdminDashboard adminDashboard = new AdminDashboard(); // Open admin dashboard
+                    adminDashboard.setVisible(true);
+                }
+                // To Check if the user is a customer
+                else if (isCustomer(username, password)) {
+                    JOptionPane.showMessageDialog(j, "Customer login successful!");
+                    j.dispose(); // Close the login window
+                    LeafShop2 leafShop2 = new LeafShop2(); // Open LeafShop2 window for customers
+                    leafShop2.setVisible(true);
                 } else {
-                    // To Check if the user is an admin
-                    if (isAdmin(username, password)) {
-                        JOptionPane.showMessageDialog(j, "Admin login successful!");
-                        j.dispose(); // Close the login window
-                        AdminDashboard adminDashboard = new AdminDashboard(); // Open admin dashboard
-                        adminDashboard.setVisible(true);
-                    }
-                    // To Check if the user is a customer
-                    else if (isCustomer(username, password)) {
-                        JOptionPane.showMessageDialog(j, "Customer login successful!");
-                        j.dispose(); // Close the login window
-                        LeafShop2 leafShop2 = new LeafShop2(); // Open LeafShop2 window for customers
-                        leafShop2.setVisible(true);
-                    } else {
-                        JOptionPane.showMessageDialog(j, "Invalid username or password!", "Error", JOptionPane.ERROR_MESSAGE);
-                    }
+                    JOptionPane.showMessageDialog(j, "Invalid username or password!", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
 
         // Action listener for Back button
-        backButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                j.dispose();  // Close the login window
-                new WelcomeFrame(); // Open the Welcome Frame
-            }
+        backButton.addActionListener((ActionEvent e) -> {
+            j.dispose();  // Close the login window
+            new Main(); // Open the Welcome Frame
         });
 
         j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -128,9 +124,5 @@ class LoginFrame {
             }
         }
         return false;
-    }
-
-    public static void main(String[] args) {
-        new LoginFrame();
     }
 }

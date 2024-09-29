@@ -1,11 +1,12 @@
-package com.bookshop.management;
+package gui;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.*;
+import src.Main;
 
-class LeafShop2 extends JFrame {
+public class LeafShop2 extends JFrame {
     private JTextField titleField, genreField;
     private ImageIcon img;
     private JLabel imgLabel;
@@ -21,7 +22,7 @@ class LeafShop2 extends JFrame {
         add(layeredPane);
 
         // Background Image
-        img = new ImageIcon("C:\\Users\\masiy\\Book.jpg.jpg");
+        img = new ImageIcon("resource/Book.jpg");
         imgLabel = new JLabel(img);
         imgLabel.setBounds(0, 0, 800, 600);
         
@@ -81,11 +82,9 @@ class LeafShop2 extends JFrame {
         layeredPane.add(logoutButton, Integer.valueOf(1));  // Add to the top layer
 
         // ActionListener for Logout button
-        logoutButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose(); // To Close the homepage
-                new WelcomeFrame(); // To Open the Welcome frame
-            }
+        logoutButton.addActionListener((ActionEvent e) -> {
+            dispose(); // To Close the homepage
+            new Main(); // To Open the Welcome frame
         });
 
         // View Books Button
@@ -94,12 +93,10 @@ class LeafShop2 extends JFrame {
         layeredPane.add(viewBooksButton, Integer.valueOf(1));  // Add to the top layer
 
         // ActionListener for View Books button
-        viewBooksButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose(); // Close the current homepage frame
-                BookList bookList = new BookList(); // Open BookList frame
-                bookList.setVisible(true);
-            }
+        viewBooksButton.addActionListener((ActionEvent e) -> {
+            dispose(); // Close the current homepage frame
+            BookList bookList = new BookList(); // Open BookList frame
+            bookList.setVisible(true);
         });
 
         // Set default close operation
@@ -299,20 +296,13 @@ class BookList extends JFrame {
         panel.add(backButton);
 
          // ActionListener for Back Button
-        backButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose(); // Close the BookList frame
-                LeafShop2 leafShop2 = new LeafShop2(); // Open the LeafShop2 frame
-                leafShop2.setVisible(true);
-            }
+        backButton.addActionListener((ActionEvent e) -> {
+            dispose(); // Close the BookList frame
+            LeafShop2 leafShop2 = new LeafShop2(); // Open the LeafShop2 frame
+            leafShop2.setVisible(true);
         });
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1200, 800);
-    }
-
-    public static void main(String[] args) {
-        BookList list = new BookList();
-        list.setVisible(true);
     }
 }
